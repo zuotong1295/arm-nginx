@@ -4,7 +4,6 @@ FROM registry.openanolis.cn/openanolis/nginx:1.14.1-8.6
 # 安装 fcgiwrap spawn-fcgi 和其他依赖
 RUN yum install -y epel-release && yum install -y fcgiwrap spawn-fcgi && yum clean all
 && touch /var/run/fcgiwrap.socket && chown nginx:nginx /var/run/fcgiwrap.socket && chmod 660 /var/run/fcgiwrap.socket
-# 创建 cgi-bin 目录
 && mkdir -p /usr/lib/cgi-bin
 
 # 添加脚本文件
