@@ -3,11 +3,9 @@ FROM registry.openanolis.cn/openanolis/nginx:1.14.1-8.6
 
 # 安装 fcgiwrap spawn-fcgi 和其他依赖
 RUN yum install -y epel-release && yum install -y fcgiwrap spawn-fcgi && yum clean all
-
-RUN touch /var/run/fcgiwrap.socket && chown nginx:nginx /var/run/fcgiwrap.socket && chmod 660 /var/run/fcgiwrap.socket
-
+&& touch /var/run/fcgiwrap.socket && chown nginx:nginx /var/run/fcgiwrap.socket && chmod 660 /var/run/fcgiwrap.socket
 # 创建 cgi-bin 目录
-RUN mkdir -p /usr/lib/cgi-bin
+&& mkdir -p /usr/lib/cgi-bin
 
 # 添加脚本文件
 COPY cpu_architecture.sh /usr/lib/cgi-bin/cpu_architecture.sh
@@ -15,7 +13,7 @@ COPY fetch_content.sh /usr/lib/cgi-bin/fetch_content.sh
 
 # 确保脚本是可执行的
 RUN chmod +x /usr/lib/cgi-bin/cpu_architecture.sh
-RUN chmod +x /usr/lib/cgi-bin/fetch_content.sh
+&& chmod +x /usr/lib/cgi-bin/fetch_content.sh
 
 # 添加 Nginx 配置
 COPY cpu_architecture.conf /etc/nginx/default.d/cpu_architecture.conf
